@@ -25,11 +25,23 @@ public class ClienteEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCliente;
 
+    @Column(name = "nome")
+    private String nome;
+
     @Column(name = "email")
     private String email;
 
     @Column(name = "senha")
     private String senha;
+
+    @Column(name = "telefone")
+    private String telefone;
+
+    @Column(name = "endereco")
+    private String endereco;
+
+    @Column(name = "pontos")
+    private Integer pontos;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
