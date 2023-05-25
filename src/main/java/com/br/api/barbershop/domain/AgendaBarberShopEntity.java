@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "agenda_barber_shop")
+@Table(name = "agenda_barber_shop", schema = "public")
 public class AgendaBarberShopEntity implements Serializable {
 
     @Serial
@@ -23,7 +23,8 @@ public class AgendaBarberShopEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idAgenda;
+    @Column(name = "id")
+    private Integer idAgenda;
 
     @Column(name = "data_agenda")
     private LocalDateTime dataAgenda;
@@ -37,6 +38,6 @@ public class AgendaBarberShopEntity implements Serializable {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
 }

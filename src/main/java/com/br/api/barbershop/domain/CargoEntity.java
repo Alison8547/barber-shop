@@ -1,10 +1,13 @@
 package com.br.api.barbershop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cargo")
+@Table(name = "cargo", schema = "public")
 public class CargoEntity implements Serializable {
 
     @Serial
@@ -20,8 +23,13 @@ public class CargoEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idCargo;
+    @Column(name = "id")
+    private Integer idCargo;
 
     @Column(name = "nome")
     private String nome;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cargo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ClienteEntity> clienteEntities = new HashSet<>();
 }

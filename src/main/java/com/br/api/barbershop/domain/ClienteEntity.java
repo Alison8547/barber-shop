@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cliente")
+@Table(name = "cliente", schema = "public")
 public class ClienteEntity implements Serializable {
 
     @Serial
@@ -23,7 +23,8 @@ public class ClienteEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idCliente;
+    @Column(name = "id")
+    private Integer idCliente;
 
     @Column(name = "nome")
     private String nome;
@@ -43,9 +44,11 @@ public class ClienteEntity implements Serializable {
     @Column(name = "pontos")
     private Integer pontos;
 
+    @Column(name = "cargo_id", insertable = false, updatable = false)
+    private Integer idCargo;
+
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cargo")
+    @ManyToOne(fetch = FetchType.LAZY)
     private CargoEntity cargo;
 
 
