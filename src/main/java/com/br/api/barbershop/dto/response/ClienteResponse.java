@@ -14,6 +14,7 @@ public class ClienteResponse {
     private Long idCliente;
     private String nome;
     private String email;
+    private Integer ativo;
     private String telefone;
     private String endereco;
     private Integer pontos;

@@ -2,12 +2,13 @@ package com.br.api.barbershop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "cliente", schema = "public")
-public class ClienteEntity implements Serializable {
+public class ClienteEntity implements Serializable, UserDetails {
 
     @Serial
     private static final long serialVersionUID = 7526502149208345058L;
@@ -31,6 +32,9 @@ public class ClienteEntity implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "ativo")
+    private Integer ativo;
 
     @Column(name = "senha")
     private String senha;
@@ -55,4 +59,41 @@ public class ClienteEntity implements Serializable {
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)
     private Set<AgendaBarberShopEntity> agendaBarberShopEntities = new LinkedHashSet<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
+        grantedAuthorityList.add(cargo);
+        return grantedAuthorityList;
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return ativo == 1;
+    }
 }
