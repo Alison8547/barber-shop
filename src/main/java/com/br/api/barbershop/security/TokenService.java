@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,10 @@ public class TokenService {
         LocalDateTime localDateTimeExpiration = localDateTime.plusDays(Long.parseLong(expiration));
         Date dateExpiration = Date.from(localDateTimeExpiration.atZone(ZoneId.systemDefault()).toInstant());
 
-        CargoEntity cargo = clienteEntity.getCargo();
+        List<CargoEntity> cargosList = new ArrayList<>();
+        cargosList.add(clienteEntity.getCargo());
+        List<String> cargo = cargosList.stream().map(CargoEntity::getAuthority)
+                .toList();
 
         return Jwts.builder()
                 .setIssuer("barber-api")
