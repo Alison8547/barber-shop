@@ -22,7 +22,7 @@ public class AgendaBarberShopEntity implements Serializable {
     private static final long serialVersionUID = 7526502149208345058L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer idAgenda;
 
