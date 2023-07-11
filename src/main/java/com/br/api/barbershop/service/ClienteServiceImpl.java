@@ -3,6 +3,7 @@ package com.br.api.barbershop.service;
 import com.br.api.barbershop.domain.ClienteEntity;
 import com.br.api.barbershop.dto.request.ClienteRequest;
 import com.br.api.barbershop.dto.response.ClienteResponse;
+import com.br.api.barbershop.exception.BusinessException;
 import com.br.api.barbershop.mapper.ClienteMapper;
 import com.br.api.barbershop.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,11 @@ public class ClienteServiceImpl implements ClienteService {
 
     public Integer getIdLoggedUser() {
         return Integer.parseInt((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    }
+
+    public ClienteEntity findCliente(Integer idCliente) {
+        return clienteRepository.findById(idCliente)
+                .orElseThrow(() -> new BusinessException("Cliente não encontrado!"));
     }
 
 }

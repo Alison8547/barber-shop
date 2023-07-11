@@ -1,13 +1,12 @@
 package com.br.api.barbershop.dto.request;
 
-import com.br.api.barbershop.enums.TipoServico;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,9 +16,10 @@ import java.time.LocalDateTime;
 public class AgendaBarberShopRequest {
 
     @NotNull
-    @Past(message = "Data não pode ser no passado!")
+    @Schema(description = "Sua data de agendamento")
     private LocalDateTime dataAgenda;
 
     @NotNull
-    private TipoServico tipoServico;
+    @Schema(description = "Seu tipo de serviço", example = "Cabelo")
+    private String tipoServico;
 }

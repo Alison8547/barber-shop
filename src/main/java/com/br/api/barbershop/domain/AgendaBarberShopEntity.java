@@ -29,6 +29,9 @@ public class AgendaBarberShopEntity implements Serializable {
     @Column(name = "data_agenda")
     private LocalDateTime dataAgenda;
 
+    @Column(name = "data_agenda_time_service")
+    private LocalDateTime dataAgendaTimeService;
+
     @Column(name = "tipo_servico")
     @Enumerated(EnumType.ORDINAL)
     private TipoServico tipoServico;
